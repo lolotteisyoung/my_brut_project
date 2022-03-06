@@ -16,7 +16,7 @@ def connect_to_db():
         print(f"‼ Failed to connect to the database {db}")
 
 
-def create_table():
+def create_tables():
     page_table = """CREATE TABLE IF NOT EXISTS ourmedia_page_info(
     created_at TIMESTAMP,
     page_id INTEGER PRIMARY KEY,
@@ -60,4 +60,4 @@ def create_table():
 
 if __name__ == '__main__':
     connect_to_db()
-    create_table()
+    create_tables()
