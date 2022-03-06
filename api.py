@@ -6,43 +6,46 @@ from my_database import create_tables
 app = Flask(__name__)
 
 
-@app.route('/pages', methods=["GET"])
+@app.route("/pages", methods=["GET"])
 def get_pages():
     pages = my_operator.get_pages()
     return jsonify(pages)
 
 
-@app.route('/videos', methods=["GET"])
+@app.route("/videos", methods=["GET"])
 def get_videos():
     videos = my_operator.get_videos()
     return jsonify(videos)
 
 
-@app.route('/insights', methods=["GET"])
+@app.route("/insights", methods=["GET"])
 def get_insights():
     insights = my_operator.get_insights()
     return jsonify(insights)
 
 
-@app.route('/insights/<id>', methods=["GET"])
+@app.route("/insights/<id>", methods=["GET"])
 def get_insights_by_video_id(id):
     insights = my_operator.get_insights_by_video(id)
     return jsonify(insights)
 
 
-@app.route('/page', methods=["POST"])
+@app.route("/page/add", methods=["POST"])
 def add_page():
     page_info = request.get_json()
+    return jsonify(my_operator.create_page(page_info))
 
 
-@app.route('/video', methods=["POST"])
+@app.route("/video/add", methods=["POST"])
 def add_video():
     video_info = request.get_json()
+    return jsonify(my_operator.create_video(video_info))
 
 
-@app.route('/insight', methods=["POST"])
+@app.route("/insight/add", methods=["POST"])
 def add_insight():
     insight_info = request.get_json()
+    return jsonify(my_operator.create_insight(insight_info))
 
 
 @app.route("/page/<id>", methods=["DELETE"])
@@ -53,7 +56,7 @@ def delete_page(id):
 
 @app.route("/video/<id>", methods=["DELETE"])
 def delete_video(id):
-    action = my_operator.delete_page(id)
+    action = my_operator.delete_video(id)
     return jsonify(action)
 
 
@@ -64,39 +67,38 @@ def delete_insight(id):
 
 
 page = {
-    'created_at': datetime.now(),
-    'page_id': 70515,
-    'page_name': 'Our Media France'
+    "created_at": datetime.now(),
+    "page_id": 70515,
+    "page_name": "Our Media France"
 }
 video_a = {
-    'created_at': datetime.now(),
-    'video_id': 33401,
-    'video_title': 'Parlons Cash',
-    'page_id': 70501,
+    "created_at": datetime.now(),
+    "video_id": 33401,
+    "video_title": "Parlons Cash",
+    "page_id": 70501,
 }
 video_b = {
-    'created_at': datetime.now(),
-    'video_id': 33401,
-    'video_title': "Privés d'écran",
-    'page_id': 75502,
+    "created_at": datetime.now(),
+    "video_id": 33318,
+    "video_title": "Privés d'écran",
+    "page_id": 75502,
 }
 
 video_insight_a = {
-    'created_at': datetime.now(),
-    'id': 334011,
-    'video_id': 33401,
-    'video_likes': 310960,
-    'video_views': 856000,
+    "created_at": datetime.now(),
+    "id": 334011,
+    "video_id": 33401,
+    "video_likes": 310960,
+    "video_views": 856000,
 }
 video_insight_b = {
-    'created_at': datetime.now(),
-    'id': 333181,
-    'video_id': 33318,
-    'video_likes': 553289,
-    'video_views': 1523680,
+    "created_at": datetime.now(),
+    "id": 333181,
+    "video_id": 33318,
+    "video_likes": 553289,
+    "video_views": 1523680,
 }
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     create_tables()
-
-    app.run(host='0.0.0.0', port=8000, debug=False)
+    app.run(port=8000, debug=False)

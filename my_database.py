@@ -9,11 +9,22 @@ def connect_to_db():
     db = os.environ.get("MY_SQL_DB")
     try:
         conn = sqlite3.connect(db)
-        print("🏠 the database has been created/connexion to the database has been successfull")
+        print("🏠 connexion to the database was successfull")
         return conn
 
     except:
         print(f"‼ Failed to connect to the database {db}")
+
+def clean_db():
+    conn = connect_to_db()
+    query_delete_page ="""DROP TABLE ourmedia_page_info"""
+    query_delete_video ="""DROP TABLE ourmedia_video_info"""
+    query_delete_insight="""DROP TABLE ourmedia_video_insight"""
+    conn.execute(query_delete_page)
+    conn.execute(query_delete_video)
+    conn.execute(query_delete_insight)
+    conn.close()
+
 
 
 def create_tables():
@@ -25,15 +36,17 @@ def create_tables():
     created_at TIMESTAMP,
     video_id INTEGER PRIMARY KEY,
     video_title TEXT,
-    "page_id INTEGER, FOREIGN KEY(page_id) REFERENCES ourmedia_page_info(page_id)")"""
-    insight_table = """CREATE TABLE IF NOT EXISTS ourmedia_insight_video(
+    page_id REFERENCES ourmedia_page_info(page_id))"""
+    insight_table = """CREATE TABLE IF NOT EXISTS ourmedia_video_insight(
     created_at TIMESTAMP,
     id INTEGER PRIMARY KEY,
-    "video_id INTEGER, FOREIGN KEY(video_id) REFERENCES ourmedia_video_info(video_id)"
+    video_id REFERENCES ourmedia_video_info(video_id),
     video_likes INTEGER,
     video_views INTEGER)"""
 
     conn = connect_to_db()
+    conn.execute('PRAGMA foreign_keys = 1')
+    conn.commit()
     cursor = conn.cursor()
 
     try:
@@ -59,5 +72,4 @@ def create_tables():
 
 
 if __name__ == '__main__':
-    connect_to_db()
     create_tables()
