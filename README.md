@@ -36,6 +36,8 @@ the api call _post_ will send the data of the insight for video A and for video 
 ###**_4. delete video B_**
 the api call _delete_ will delete the data of the video B
 
+######Once the main script launched you can view the database brut_our_media.db created
+
 ###_5.an analytics database_ 
 
 ![img.png](img.png)
