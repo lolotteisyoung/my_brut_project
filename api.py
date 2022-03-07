@@ -66,39 +66,6 @@ def delete_insight(id):
     return jsonify(action)
 
 
-page = {
-    "created_at": datetime.now(),
-    "page_id": 70515,
-    "page_name": "Our Media France"
-}
-video_a = {
-    "created_at": datetime.now(),
-    "video_id": 33401,
-    "video_title": "Parlons Cash",
-    "page_id": 70501,
-}
-video_b = {
-    "created_at": datetime.now(),
-    "video_id": 33318,
-    "video_title": "Privés d'écran",
-    "page_id": 75502,
-}
-
-video_insight_a = {
-    "created_at": datetime.now(),
-    "id": 334011,
-    "video_id": 33401,
-    "video_likes": 310960,
-    "video_views": 856000,
-}
-video_insight_b = {
-    "created_at": datetime.now(),
-    "id": 333181,
-    "video_id": 33318,
-    "video_likes": 553289,
-    "video_views": 1523680,
-}
-
 if __name__ == "__main__":
     create_tables()
     app.run(port=8000, debug=False)

@@ -30,19 +30,19 @@ def clean_db():
 def create_tables():
     page_table = """CREATE TABLE IF NOT EXISTS ourmedia_page_info(
     created_at TIMESTAMP,
-    page_id INTEGER PRIMARY KEY,
-    page_name TEXT)"""
+    id INTEGER PRIMARY KEY,
+    name TEXT)"""
     video_table = """CREATE TABLE IF NOT EXISTS ourmedia_video_info(
     created_at TIMESTAMP,
-    video_id INTEGER PRIMARY KEY,
-    video_title TEXT,
-    page_id REFERENCES ourmedia_page_info(page_id))"""
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    page_id REFERENCES ourmedia_page_info(id))"""
     insight_table = """CREATE TABLE IF NOT EXISTS ourmedia_video_insight(
     created_at TIMESTAMP,
-    id INTEGER PRIMARY KEY,
-    video_id REFERENCES ourmedia_video_info(video_id),
-    video_likes INTEGER,
-    video_views INTEGER)"""
+    id REFERENCES ourmedia_video_info(id),
+    video_id INTEGER PRIMARY KEY,
+    likes INTEGER,
+    views INTEGER)"""
 
     conn = connect_to_db()
     conn.execute('PRAGMA foreign_keys = 1')
@@ -72,4 +72,4 @@ def create_tables():
 
 
 if __name__ == '__main__':
-    create_tables()
+    clean_db()
